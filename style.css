@@ -48,77 +48,71 @@ body{
 .status-line{ font-size: 18px; }
 .status-sub{ margin-top:6px; color:var(--muted) }
 
-/* ===== Timeline ===== */
+/* ===== Timeline (spacious) ===== */
 .timeline{
   position: relative;
-  height: 200px;                 /* extra headroom for icons */
-  margin: 32px 0 10px;
+  --rail-top: 140px;                 /* move this up/down to tune all spacing */
+  height: calc(var(--rail-top) + 80px);
+  margin: 42px 0 18px;
+  padding-inline: 8px;
 }
 
-/* Era bands (categories) */
+/* Era bands just above the rail */
 .era-bands{
-  position:absolute; left:0; right:0; top:76px; height:40px;  /* moved down a touch */
+  position:absolute; left:0; right:0;
+  top: calc(var(--rail-top) - 32px); height:52px;
   z-index:1; pointer-events:none;
 }
 .era-band{
-  position:absolute; top:0; height:40px; border-radius:12px;
+  position:absolute; top:0; height:52px; border-radius:14px;
   background: linear-gradient(180deg, rgba(255,43,209,.12), rgba(255,43,209,.06));
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 0 30px rgba(255, 43, 209, 0.10);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 0 30px rgba(255,43,209,.10);
 }
 .era-band .era-name{
-  position:absolute; top:-18px; left:0; right:0;
-  text-align:center; font-size:12px; color:var(--muted);
+  position:absolute; top:-22px; left:0; right:0; text-align:center;
+  font-size:12px; color:var(--muted);
 }
 
-/* Rail */
+/* Rail + journey line */
 .timeline-rail{
-  position:absolute; left:0; right:0; top: 96px; height:2px;  /* rail is baseline */
+  position:absolute; left:0; right:0; top: var(--rail-top); height:2px;
   background: var(--rail); z-index:2;
-  box-shadow: 0 0 18px rgba(255,255,255,0.07) inset;
+  box-shadow: inset 0 0 18px rgba(255,255,255,0.07);
 }
-
-/* Glowing journey line (from start → current) */
 .journey-line{
-  position:absolute; left:0; top:96px; height:6px; width:0;
+  position:absolute; left:0; top: var(--rail-top);
+  height:8px; width:0; border-radius:999px; z-index:3;
   background: linear-gradient(90deg, var(--neon), var(--neon-2));
-  border-radius:999px; z-index:3;
   box-shadow: 0 0 16px var(--neon-2), 0 0 8px var(--neon);
   transition: width .25s ease;
 }
 
-/* Anchor year marks (kept lower than milestone icons) */
+/* (Optional) anchor marks layer; fine if unused */
 .era-marks{ position:absolute; left:0; right:0; top:0; height:100%; z-index:4; }
-.era-mark{
-  position:absolute; transform: translateX(-50%);
-  top: 66px; width: 80px; text-align:center; color: var(--muted);
-}
-.era-mark .ico{
-  width:36px; height:36px; margin:0 auto 6px;
-  color: var(--neon);
-  filter: drop-shadow(0 0 10px rgba(255, 43, 209, .6));
-}
-.era-mark .year{ margin-top:0; font-size:12px; opacity:.85 }
 
-/* Milestone icons ABOVE the rail */
+/* Milestone icons (ABOVE the rail) */
 .milestone-marks{ position:absolute; left:0; right:0; top:0; height:100%; z-index:5; pointer-events:none; }
-.milestone-mark{
-  position:absolute; transform:translateX(-50%);
-  top:26px; width:56px; text-align:center;
-}
+.milestone-mark{ position:absolute; transform:translateX(-50%); width:58px; text-align:center; }
+.milestone-mark.row1{ top: calc(var(--rail-top) - 118px); }
+.milestone-mark.row2{ top: calc(var(--rail-top) - 138px); }   /* stagger to avoid collisions */
 .milestone-mark .ico{
-  width:28px; height:28px; margin:0 auto 4px; color: var(--neon);
+  width:30px; height:30px; margin:0 auto 8px; color: var(--neon);
   filter: drop-shadow(0 0 10px rgba(255, 43, 209, .6));
 }
 .milestone-mark .tick{
-  width:2px; height:14px; margin:0 auto; background:var(--rail);
-  border-radius:2px; opacity:.9;
+  width:2px; height:24px; margin:0 auto; background:var(--rail); border-radius:2px; opacity:.9;
 }
-/* stagger alternate icons to reduce collisions */
-.milestone-mark.row2{ top:10px; }
 
-/* Progress marker (dot at the tip of the journey line) */
+/* Milestone years (BELOW the rail) */
+.milestone-labels{ position:absolute; left:0; right:0; top: calc(var(--rail-top) + 20px); height:22px; z-index:4; }
+.milestone-label{
+  position:absolute; transform:translateX(-50%); top:0;
+  font-size:12px; color:var(--muted); white-space:nowrap; opacity:.95;
+}
+
+/* Progress marker sits on the rail */
 .progress-marker{
-  position:absolute; top:88px; width:16px; height:16px; border-radius:50%;
+  position:absolute; top: calc(var(--rail-top) - 8px); width:16px; height:16px; border-radius:50%;
   background: var(--neon); z-index:6;
   box-shadow: 0 0 18px var(--neon), 0 0 42px var(--neon-2);
   transform: translateX(-50%);
