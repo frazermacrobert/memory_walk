@@ -1,61 +1,90 @@
-/* Memory Walk · York Through Time
-   Vanilla JS viewer • 1 km = 1 year
-   Data source: assets/progress.json (edit totalKm to update)
+/* Memory Walk · York Through Time (v2)
+   Era bands, expanded milestones, simplified anchors
 */
 const START_YEAR = 70;
-const TARGET_KM = 1955; // 70 → 2025 inclusive
+const TARGET_KM = 1955; // 70 → 2025
 
-// Milestones: concise; add or edit freely.
-const MILESTONES = [
-  { year: 71,  title: "Eboracum garrison established",
-    desc: "The Romans strengthen their northern fortress on the Ouse, making York (Eboracum) a military and administrative centre.",
-    icon: "icon-arch", link: "https://en.wikipedia.org/wiki/Eboracum" },
-  { year: 306, title: "Constantine proclaimed emperor",
-    desc: "After the death of Constantius Chlorus in York, his son Constantine is acclaimed emperor by the troops.",
-    icon: "icon-arch", link: "https://en.wikipedia.org/wiki/Constantine_the_Great" },
-  { year: 627, title: "First York Minster",
-    desc: "King Edwin of Northumbria is baptised in a wooden church at York—seen as the origin of York Minster.",
-    icon: "icon-minster", link: "https://en.wikipedia.org/wiki/York_Minster" },
-  { year: 866, title: "Viking capture of York",
-    desc: "The Great Heathen Army takes the city; Jórvík becomes a thriving trading hub.",
-    icon: "icon-ship", link: "https://en.wikipedia.org/wiki/J%C3%B3rvik" },
-  { year: 1068, title: "York Castle built",
-    desc: "William I builds a motte-and-bailey at Clifford’s Tower site to secure the north.",
-    icon: "icon-castle", link: "https://en.wikipedia.org/wiki/Clifford%27s_Tower" },
-  { year: 1190, title: "Clifford’s Tower tragedy",
-    desc: "Members of York’s Jewish community die during anti‑Jewish violence at the castle.",
-    icon: "icon-castle", link: "https://en.wikipedia.org/wiki/York_pogrom" },
-  { year: 1644, title: "Siege of York / Marston Moor",
-    desc: "A pivotal Civil War moment: the fall of York follows the Parliamentarian victory nearby.",
-    icon: "icon-rose", link: "https://en.wikipedia.org/wiki/Siege_of_York" },
-  { year: 1839, title: "Railway age arrives",
-    desc: "York emerges as a key railway hub, shaping the city’s modern growth.",
-    icon: "icon-gear", link: "https://en.wikipedia.org/wiki/History_of_York#Railways" },
-  { year: 1862, title: "Rowntree founded",
-    desc: "The chocolate maker begins in York, later creating iconic brands and model housing for workers.",
-    icon: "icon-gear", link: "https://en.wikipedia.org/wiki/Rowntree%27s" },
-  { year: 1963, title: "University of York founded",
-    desc: "A new university campus opens, bringing fresh research and culture to the city.",
-    icon: "icon-skyline", link: "https://en.wikipedia.org/wiki/University_of_York" },
-  { year: 1984, title: "York Minster fire",
-    desc: "Lightning strikes the south transept; a huge restoration effort follows.",
-    icon: "icon-minster", link: "https://en.wikipedia.org/wiki/1984_fire_at_York_Minster" },
-  { year: 2014, title: "Tour de France in York",
-    desc: "The Grand Départ brings global attention as riders sweep through the city.",
-    icon: "icon-skyline", link: "https://en.wikipedia.org/wiki/2014_Tour_de_France" }
+// Era categories (bands)
+const ERAS = [
+  { name: "Roman", from: 70, to: 410 },
+  { name: "Anglo-Saxon", from: 411, to: 865 },
+  { name: "Viking", from: 866, to: 954 },
+  { name: "Norman & Medieval", from: 1066, to: 1485 },
+  { name: "Tudor–Stuart", from: 1486, to: 1714 },
+  { name: "Georgian & Industrial", from: 1715, to: 1900 },
+  { name: "Modern", from: 1901, to: 2025 }
 ];
 
+// Your new milestones (SVG icons mapped from the emoji ideas)
+const MILESTONES = [
+  { year:71,   label:"Eboracum founded",           icon:"icon-arch",
+    caption:"The Romans established the fortress of Eboracum at the confluence of the Ouse and Foss—foundations of today’s York.",
+    link:"", image:"" },
+  { year:208,  label:"Death of Septimius Severus", icon:"icon-laurel",
+    caption:"Roman emperor Septimius Severus died in York while campaigning in Britain, briefly making the city an imperial power base.",
+    link:"", image:"" },
+  { year:306,  label:"Constantine proclaimed",     icon:"icon-crown",
+    caption:"In Eboracum, Constantine was hailed emperor by his father’s troops—an event that helped set Rome (and later Europe) on a path toward Christianisation.",
+    link:"", image:"" },
+  { year:627,  label:"First York Minster",         icon:"icon-minster",
+    caption:"King Edwin’s baptism led to a first wooden church on this site, beginning 1,300+ years of worship in York.",
+    link:"", image:"" },
+  { year:866,  label:"Viking Invasion",            icon:"icon-ship",
+    caption:"The Great Heathen Army captured York and renamed it Jórvík, turning it into a bustling Viking trading hub.",
+    link:"", image:"" },
+  { year:1068, label:"York Castle built",          icon:"icon-castle",
+    caption:"William the Conqueror raised a motte-and-bailey at York—precursor to Clifford’s Tower—to secure Norman control.",
+    link:"", image:"" },
+  { year:1212, label:"Minster fire",               icon:"icon-flame",
+    caption:"A medieval blaze damaged parts of the Minster and city, prompting phases of rebuilding in stone.",
+    link:"", image:"assets/1212.png" },
+  { year:1349, label:"Black Death",                icon:"icon-skull",
+    caption:"The plague hit York hard, reshaping population, labour and guild life across the city. Learn more:",
+    link:"", image:"" },
+  { year:1485, label:"Wars of the Roses end",      icon:"icon-rose",
+    caption:"Bosworth brought Tudor rule; York’s close ties to Richard III ended and civic fortunes shifted under new royal policy.",
+    link:"", image:"" },
+  { year:1644, label:"Siege of York",              icon:"icon-shield",
+    caption:"After the Parliamentarian victory at nearby Marston Moor, York surrendered—turning the tide in the North.",
+    link:"", image:"" },
+  { year:1839, label:"Railway station opens",      icon:"icon-train",
+    caption:"York’s first station opened, propelling the city into the railway age and new industries.",
+    link:"", image:"" },
+  { year:1932, label:"Chocolate Orange launched",  icon:"icon-choc",
+    caption:"Terry’s created the Chocolate Orange in York—a local invention that became a national favourite.",
+    link:"", image:"" },
+  { year:1984, label:"JORVIK Centre opens",        icon:"icon-ship",
+    caption:"JORVIK brought Coppergate’s archaeology to life and re-imagined museum storytelling.",
+    link:"", image:"" },
+  { year:2001, label:"Fairtrade City",             icon:"icon-handshake",
+    caption:"York’s fair-trade movement gathered pace; the city would go on to achieve official Fairtrade City status in 2004.",
+    link:"", image:"" },
+  { year:2025, label:"Challenge complete!",        icon:"icon-stars",
+    caption:"We've made it to the present day—time traveller status unlocked!",
+    link:"", image:"" }
+];
+
+// Timeline anchors (icon + single year label)
+const ANCHORS = [
+  { year: 70,   icon: "icon-arch" },
+  { year: 866,  icon: "icon-ship" },
+  { year: 1914, icon: "icon-rose" },
+  { year: 2025, icon: "icon-skyline" }
+];
+
+// Helpers
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const yearToPercent = (year) => clamp((year - START_YEAR) / TARGET_KM, 0, 1);
 
 function pickMilestone(currentYear){
   let chosen = MILESTONES[0];
-  for(const m of MILESTONES){
-    if(m.year <= currentYear && (!chosen || m.year >= chosen.year)) chosen = m;
+  for (const m of MILESTONES){
+    if (m.year <= currentYear && (!chosen || m.year >= chosen.year)) chosen = m;
   }
   return chosen || MILESTONES[0];
 }
 
+// Renderers
 function renderStatus(totalKm){
   const currentYear = START_YEAR + totalKm;
   document.getElementById('progressText').textContent = `${totalKm} / ${TARGET_KM} km`;
@@ -63,22 +92,31 @@ function renderStatus(totalKm){
   document.getElementById('currentYear').textContent = yLabel;
 }
 
-function renderEras(container){
+function renderEraBands(container){
+  if (!container) return;
   container.innerHTML = '';
-  const anchors = [
-    { label: "70 AD", year: 70, icon: "icon-arch" },
-    { label: "866", year: 866, icon: "icon-ship" },
-    { label: "1914", year: 1914, icon: "icon-rose" },
-    { label: "2025", year: 2025, icon: "icon-skyline" }
-  ];
-  for(const a of anchors){
+  for (const e of ERAS){
+    const left = yearToPercent(e.from) * 100;
+    const width = (yearToPercent(e.to) - yearToPercent(e.from)) * 100;
+    const el = document.createElement('div');
+    el.className = 'era-band';
+    el.style.left = `${left}%`;
+    el.style.width = `${width}%`;
+    el.innerHTML = `<div class="era-name">${e.name}</div>`;
+    container.appendChild(el);
+  }
+}
+
+function renderAnchors(container){
+  if (!container) return;
+  container.innerHTML = '';
+  for (const a of ANCHORS){
     const p = yearToPercent(a.year);
     const el = document.createElement('div');
     el.className = 'era-mark';
     el.style.left = (p * 100) + '%';
     el.innerHTML = `
       <svg class="ico"><use href="#${a.icon}"></use></svg>
-      <div class="label">${a.label}</div>
       <div class="year">${a.year}</div>
     `;
     container.appendChild(el);
@@ -86,35 +124,63 @@ function renderEras(container){
 }
 
 function moveMarker(marker, totalKm){
+  if (!marker) return;
   const currentYear = START_YEAR + totalKm;
-  const p = yearToPercent(currentYear);
-  marker.style.left = (p * 100) + '%';
+  marker.style.left = (yearToPercent(currentYear) * 100) + '%';
 }
 
 function renderMilestoneCard(totalKm){
   const currentYear = START_YEAR + totalKm;
   const m = pickMilestone(currentYear);
-  document.getElementById('mTitle').textContent = m.title;
+
+  document.getElementById('mTitle').textContent = m.label;
   document.getElementById('mYear').textContent = m.year;
-  document.getElementById('mDesc').textContent = m.desc;
-  document.getElementById('mLink').href = m.link;
-  document.querySelector('.card-icon use').setAttribute('href', `#${m.icon}`);
+  document.getElementById('mDesc').textContent = m.caption || '';
+
+  const linkEl = document.getElementById('mLink');
+  if (linkEl){
+    if (m.link) { linkEl.href = m.link; linkEl.style.display = 'inline-block'; }
+    else { linkEl.style.display = 'none'; }
+  }
+
+  const img = document.getElementById('mImage');
+  const iconUse = document.querySelector('#mIcon use') || document.querySelector('.card-icon use');
+
+  if (img && m.image){
+    img.style.display = 'block';
+    img.src = m.image;
+    if (iconUse) iconUse.parentElement.style.display = 'none';
+  } else {
+    if (img){ img.style.display = 'none'; img.removeAttribute('src'); }
+    if (iconUse){
+      iconUse.parentElement.style.display = 'block';
+      iconUse.setAttribute('href', `#${m.icon || 'icon-arch'}`);
+    }
+  }
 }
 
+// Init
 async function init(){
   let totalKm = 0;
   try{
     const res = await fetch('assets/progress.json', { cache: 'no-store' });
     const data = await res.json();
     totalKm = clamp(Number(data.totalKm)||0, 0, TARGET_KM);
-  }catch(err){
-    console.warn('Could not load progress.json; defaulting to 0 km', err);
+  }catch(e){
     totalKm = 0;
+    console.warn('Could not load progress.json; using 0 km');
   }
+
   renderStatus(totalKm);
+  renderEraBands(document.getElementById('eraBands'));
+  renderAnchors(document.getElementById('eraMarks'));
   renderMilestoneCard(totalKm);
-  renderEras(document.getElementById('eraMarks'));
   moveMarker(document.getElementById('progressMarker'), totalKm);
-  window.addEventListener('resize', () => renderEras(document.getElementById('eraMarks')));
+
+  window.addEventListener('resize', () => {
+    renderEraBands(document.getElementById('eraBands'));
+    renderAnchors(document.getElementById('eraMarks'));
+  });
 }
+
 init();
