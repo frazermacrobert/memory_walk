@@ -65,14 +65,6 @@ const MILESTONES = [
     link:"", image:"" }
 ];
 
-// Timeline anchors (icon + single year label)
-const ANCHORS = [
-  { year: 70,   icon: "icon-arch" },
-  { year: 866,  icon: "icon-ship" },
-  { year: 1914, icon: "icon-rose" },
-  { year: 2025, icon: "icon-skyline" }
-];
-
 // Helpers
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const yearToPercent = (year) => clamp((year - START_YEAR) / TARGET_KM, 0, 1);
