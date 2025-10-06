@@ -9,8 +9,10 @@
   <meta name="color-scheme" content="dark light">
 </head>
 <body>
+  <!-- Icon sprite -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
+      <!-- existing era icons -->
       <symbol id="icon-arch" viewBox="0 0 24 24">
         <path d="M4 22V10a8 8 0 1 1 16 0v12h-3v-6a5 5 0 1 0-10 0v6H4Z" fill="none" stroke="currentColor" stroke-width="2" />
       </symbol>
@@ -21,7 +23,7 @@
       </symbol>
       <symbol id="icon-rose" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/>
-        <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M19.8 4.2 17 7M7 17 4.2 19.8" 
+        <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M19.8 4.2 17 7M7 17 4.2 19.8"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </symbol>
       <symbol id="icon-castle" viewBox="0 0 24 24">
@@ -40,6 +42,43 @@
       <symbol id="icon-minster" viewBox="0 0 24 24">
         <path d="M3 21V7l3-2 3 2v14H3Zm12 0V7l3-2 3 2v14h-6Z" fill="none" stroke="currentColor" stroke-width="2"/>
         <path d="M9 12h6" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+
+      <!-- extra milestone icons -->
+      <symbol id="icon-crown" viewBox="0 0 24 24">
+        <path d="M3 18h18l-2 3H5l-2-3Zm0-8 4 3 5-7 5 7 4-3v6H3v-6Z" fill="none" stroke="currentColor" stroke-width="2" />
+      </symbol>
+      <symbol id="icon-laurel" viewBox="0 0 24 24">
+        <path d="M6 12c-2 0-4-2-4-4 2 0 4 2 4 4Zm0 0c0 2 2 4 4 4-2 2-6 1-6-4Zm12 0c2 0 4-2 4-4-2 0-4 2-4 4Zm0 0c0 2-2 4-4 4 2 2 6 1 6-4Z" fill="none" stroke="currentColor" stroke-width="2" />
+      </symbol>
+      <symbol id="icon-flame" viewBox="0 0 24 24">
+        <path d="M12 2s2 3 2 5-2 3-2 3 4 1 4 5a4 4 0 1 1-8 0c0-4 4-5 4-8 0-2-2-5-2-5s2 1 2 0Z" fill="none" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="icon-skull" viewBox="0 0 24 24">
+        <path d="M12 3c5 0 8 3 8 7 0 3-2 5-4 6v2H8v-2c-2-1-4-3-4-6 0-4 3-7 8-7Z" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="9" cy="10" r="1.5" stroke="currentColor" stroke-width="2" fill="none"/>
+        <circle cx="15" cy="10" r="1.5" stroke="currentColor" stroke-width="2" fill="none"/>
+        <path d="M10 15h4" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="icon-shield" viewBox="0 0 24 24">
+        <path d="M4 5 12 2l8 3v6c0 6-4 9-8 11-4-2-8-5-8-11V5Z" fill="none" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="icon-train" viewBox="0 0 24 24">
+        <rect x="5" y="6" width="14" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M5 14h14M8 18l-2 3M16 18l2 3" stroke="currentColor" stroke-width="2"/>
+        <circle cx="9" cy="10" r="1" fill="currentColor"/>
+        <circle cx="15" cy="10" r="1" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-choc" viewBox="0 0 24 24">
+        <rect x="5" y="5" width="14" height="14" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M5 12h14M12 5v14" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="icon-handshake" viewBox="0 0 24 24">
+        <path d="M3 12l4-4 5 5 2-2 3 3 4-4" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M8 16l2 2 3-3" fill="none" stroke="currentColor" stroke-width="2"/>
+      </symbol>
+      <symbol id="icon-stars" viewBox="0 0 24 24">
+        <path d="M12 2l2 5 5 1-4 3 1 5-4-2-4 2 1-5-4-3 5-1 2-5Z" fill="none" stroke="currentColor" stroke-width="2"/>
       </symbol>
     </defs>
   </svg>
@@ -63,6 +102,7 @@
     </header>
 
     <section class="timeline" aria-label="Timeline from 70 AD to present">
+      <div id="eraBands" class="era-bands"></div>
       <div class="timeline-rail"></div>
       <div id="eraMarks" class="era-marks"></div>
       <div id="progressMarker" class="progress-marker" title="Current position"></div>
@@ -75,7 +115,8 @@
           <div id="mYear" class="badge">—</div>
         </div>
         <div class="card-media">
-          <svg class="card-icon"><use href="#icon-arch"/></svg>
+          <svg class="card-icon" id="mIcon"><use href="#icon-arch"/></svg>
+          <img id="mImage" alt="" />
         </div>
         <p id="mDesc" class="card-desc">—</p>
         <a id="mLink" class="btn" href="#" target="_blank" rel="noopener">Learn more</a>
