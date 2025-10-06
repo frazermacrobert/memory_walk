@@ -94,7 +94,7 @@ body{
 .milestone-marks{ position:absolute; left:0; right:0; top:0; height:100%; z-index:5; pointer-events:none; }
 .milestone-mark{ position:absolute; transform:translateX(-50%); width:58px; text-align:center; }
 .milestone-mark.row1{ top: calc(var(--rail-top) - 118px); }
-.milestone-mark.row2{ top: calc(var(--rail-top) - 138px); }   /* stagger to avoid collisions */
+.milestone-mark.row2{ top: calc(var(--rail-top) - 158px); }   /* stagger to avoid collisions */
 .milestone-mark .ico{
   width:30px; height:30px; margin:0 auto 8px; color: var(--neon);
   filter: drop-shadow(0 0 10px rgba(255, 43, 209, .6));
