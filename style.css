@@ -8,6 +8,10 @@
   --rail: rgba(255,255,255,0.12);
   --card-bg: rgba(255,255,255,0.06);
   --beige: #f4efe9;
+  --bg2: #0a0713;                 /* deeper base for the blend */
+  --neon-soft: rgba(255,43,209,.22);
+  --gx: 20%;                      /* hotspot X (updated by JS) */
+  --gy: 18%;                      /* hotspot Y (updated by JS) */
 }
 
 *{ box-sizing: border-box }
