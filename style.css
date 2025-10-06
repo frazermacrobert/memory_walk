@@ -8,10 +8,12 @@
   --rail: rgba(255,255,255,0.12);
   --card-bg: rgba(255,255,255,0.06);
   --beige: #f4efe9;
-  --bg2: #0a0713;                 /* deeper base for the blend */
+
+  /* parallax background vars */
+  --bg2: #0a0713;
   --neon-soft: rgba(255,43,209,.22);
-  --gx: 20%;                      /* hotspot X (updated by JS) */
-  --gy: 18%;                      /* hotspot Y (updated by JS) */
+  --gx: 20%;   /* hotspot X (updated by JS) */
+  --gy: 18%;   /* hotspot Y (updated by JS) */
 }
 
 *{ box-sizing: border-box }
@@ -38,7 +40,12 @@ body{
   will-change: transform;
 }
 
-.app{ max-width: 1200px; margin: 0 auto; padding: 28px 24px 48px; position: relative; z-index: 1; }
+.app{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 24px 48px;
+  position: relative; z-index: 1;   /* ensure we're above .bg */
+}
 
 .app-header{
   display:flex; align-items:center; justify-content:space-between; gap:24px;
@@ -164,26 +171,40 @@ body{
   box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
 }
 
+/* --- Card media: responsive, clipped, centered image --- */
 .card-media{
   position: relative;
+  display: block;
+  width: 100%;
   border-radius: 14px;
   overflow: hidden;                 /* clip the image to rounded corners */
   aspect-ratio: 16 / 9;             /* responsive height based on width */
-  /* keep your gradient fallback */
+  margin-bottom: 12px;
+
+  /* gradient fallback backdrop */
   background:
     radial-gradient(400px 200px at 70% 0%, rgba(255,43,209,.25), transparent),
     linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-  margin-bottom: 12px;
   box-shadow: inset 0 0 40px rgba(255,255,255,0.06);
 }
 
-.card-media img{
-  position: absolute; inset: 0;     /* pin to all four edges */
-  width: 100%; height: 100%;
-  object-fit: cover;                 /* crop to fill area */
-  object-position: center;           /* center the crop */
-  display: none;                     /* JS sets to block when an image exists */
-  border-radius: inherit;            /* extra safety */
+/* Fill and crop image inside .card-media */
+.card-media img,
+#mImage{
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;                /* change to 'contain' for letterboxing */
+  object-position: center;
+  display: none;                    /* JS sets to block when an image exists */
+  border-radius: inherit;
+}
+
+/* Fallback for very old browsers without aspect-ratio support */
+@supports not (aspect-ratio: 1 / 1){
+  .card-media{ padding-top: 56.25%; } /* 16:9 */
+  .card-media > *{ position: absolute; inset: 0; }
 }
 
 .card-desc{ color: var(--beige); opacity:.95; line-height:1.45 }
