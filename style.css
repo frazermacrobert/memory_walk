@@ -51,13 +51,13 @@ body{
 /* ===== Timeline ===== */
 .timeline{
   position: relative;
-  height: 180px;
+  height: 200px;                 /* extra headroom for icons */
   margin: 32px 0 10px;
 }
 
 /* Era bands (categories) */
 .era-bands{
-  position:absolute; left:0; right:0; top:60px; height:40px;
+  position:absolute; left:0; right:0; top:76px; height:40px;  /* moved down a touch */
   z-index:1; pointer-events:none;
 }
 .era-band{
@@ -70,16 +70,27 @@ body{
   text-align:center; font-size:12px; color:var(--muted);
 }
 
-/* Rail + anchor marks */
+/* Rail */
 .timeline-rail{
-  position:absolute; left:0; right:0; top: 80px; height:2px;
+  position:absolute; left:0; right:0; top: 96px; height:2px;  /* rail is baseline */
   background: var(--rail); z-index:2;
   box-shadow: 0 0 18px rgba(255,255,255,0.07) inset;
 }
-.era-marks{ position:absolute; left:0; right:0; top:0; height:100%; z-index:3; }
+
+/* Glowing journey line (from start → current) */
+.journey-line{
+  position:absolute; left:0; top:96px; height:6px; width:0;
+  background: linear-gradient(90deg, var(--neon), var(--neon-2));
+  border-radius:999px; z-index:3;
+  box-shadow: 0 0 16px var(--neon-2), 0 0 8px var(--neon);
+  transition: width .25s ease;
+}
+
+/* Anchor year marks (kept lower than milestone icons) */
+.era-marks{ position:absolute; left:0; right:0; top:0; height:100%; z-index:4; }
 .era-mark{
   position:absolute; transform: translateX(-50%);
-  top: 24px; width: 80px; text-align:center; color: var(--muted);
+  top: 66px; width: 80px; text-align:center; color: var(--muted);
 }
 .era-mark .ico{
   width:36px; height:36px; margin:0 auto 6px;
@@ -88,14 +99,30 @@ body{
 }
 .era-mark .year{ margin-top:0; font-size:12px; opacity:.85 }
 
-/* Progress marker */
+/* Milestone icons ABOVE the rail */
+.milestone-marks{ position:absolute; left:0; right:0; top:0; height:100%; z-index:5; pointer-events:none; }
+.milestone-mark{
+  position:absolute; transform:translateX(-50%);
+  top:26px; width:56px; text-align:center;
+}
+.milestone-mark .ico{
+  width:28px; height:28px; margin:0 auto 4px; color: var(--neon);
+  filter: drop-shadow(0 0 10px rgba(255, 43, 209, .6));
+}
+.milestone-mark .tick{
+  width:2px; height:14px; margin:0 auto; background:var(--rail);
+  border-radius:2px; opacity:.9;
+}
+/* stagger alternate icons to reduce collisions */
+.milestone-mark.row2{ top:10px; }
+
+/* Progress marker (dot at the tip of the journey line) */
 .progress-marker{
-  position:absolute; top:72px; width:16px; height:16px; border-radius:50%;
-  background: var(--neon);
+  position:absolute; top:88px; width:16px; height:16px; border-radius:50%;
+  background: var(--neon); z-index:6;
   box-shadow: 0 0 18px var(--neon), 0 0 42px var(--neon-2);
   transform: translateX(-50%);
   animation: pulse 2.4s ease-in-out infinite;
-  z-index:4;
 }
 @keyframes pulse{
   0% { box-shadow: 0 0 8px var(--neon), 0 0 20px var(--neon-2) }
