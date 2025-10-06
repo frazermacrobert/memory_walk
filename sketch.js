@@ -1,5 +1,6 @@
 /* Memory Walk · York Through Time (v2)
    Era bands, expanded milestones, simplified anchors
+   + Journey line + milestone icons along the rail
 */
 const START_YEAR = 70;
 const TARGET_KM = 1955; // 70 → 2025
@@ -15,7 +16,7 @@ const ERAS = [
   { name: "Modern", from: 1901, to: 2025 }
 ];
 
-// Your new milestones (SVG icons mapped from the emoji ideas)
+// Your milestones (SVG icons mapped from emoji ideas)
 const MILESTONES = [
   { year:71,   label:"Eboracum founded",           icon:"icon-arch",
     caption:"The Romans established the fortress of Eboracum at the confluence of the Ouse and Foss—foundations of today’s York.",
@@ -75,6 +76,7 @@ const ANCHORS = [
 // Helpers
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const yearToPercent = (year) => clamp((year - START_YEAR) / TARGET_KM, 0, 1);
+const resolveIcon = (id) => document.getElementById(id) ? id : "icon-arch";
 
 function pickMilestone(currentYear){
   let chosen = MILESTONES[0];
@@ -116,11 +118,35 @@ function renderAnchors(container){
     el.className = 'era-mark';
     el.style.left = (p * 100) + '%';
     el.innerHTML = `
-      <svg class="ico"><use href="#${a.icon}"></use></svg>
+      <svg class="ico"><use href="#${resolveIcon(a.icon)}"></use></svg>
       <div class="year">${a.year}</div>
     `;
     container.appendChild(el);
   }
+}
+
+/* NEW: render all milestone icons above the rail */
+function renderMilestoneMarks(container){
+  if (!container) return;
+  container.innerHTML = '';
+  MILESTONES.forEach((m, i) => {
+    const p = yearToPercent(m.year);
+    const el = document.createElement('div');
+    el.className = 'milestone-mark ' + (i % 2 ? 'row2' : 'row1'); // stagger
+    el.style.left = (p * 100) + '%';
+    el.innerHTML = `
+      <svg class="ico"><use href="#${resolveIcon(m.icon)}"></use></svg>
+      <div class="tick"></div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+/* NEW: glowing journey line from start → current */
+function renderJourneyLine(totalKm){
+  const p = clamp(totalKm / TARGET_KM, 0, 1);
+  const line = document.getElementById('journeyLine');
+  if (line) line.style.width = (p * 100) + '%';
 }
 
 function moveMarker(marker, totalKm){
@@ -154,7 +180,7 @@ function renderMilestoneCard(totalKm){
     if (img){ img.style.display = 'none'; img.removeAttribute('src'); }
     if (iconUse){
       iconUse.parentElement.style.display = 'block';
-      iconUse.setAttribute('href', `#${m.icon || 'icon-arch'}`);
+      iconUse.setAttribute('href', `#${resolveIcon(m.icon)}`);
     }
   }
 }
@@ -174,12 +200,15 @@ async function init(){
   renderStatus(totalKm);
   renderEraBands(document.getElementById('eraBands'));
   renderAnchors(document.getElementById('eraMarks'));
+  renderMilestoneMarks(document.getElementById('milestoneMarks'));  // NEW
   renderMilestoneCard(totalKm);
+  renderJourneyLine(totalKm);                                       // NEW
   moveMarker(document.getElementById('progressMarker'), totalKm);
 
   window.addEventListener('resize', () => {
     renderEraBands(document.getElementById('eraBands'));
     renderAnchors(document.getElementById('eraMarks'));
+    renderMilestoneMarks(document.getElementById('milestoneMarks')); // NEW
   });
 }
 
