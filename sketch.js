@@ -8,7 +8,7 @@ const TARGET_KM = 1955;
 const ERAS = [
   { name: "Roman", from: 70, to: 410 },
   { name: "Anglo-Saxon", from: 411, to: 865 },
-  { name: "Viking", from: 866, to: 954 },
+  { name: "Viking", from: 866, to: 1065 },
   { name: "Norman & Medieval", from: 1066, to: 1485 },
   { name: "Tudor–Stuart", from: 1486, to: 1714 },
   { name: "Georgian & Industrial", from: 1715, to: 1900 },
