@@ -1,6 +1,6 @@
 /* Memory Walk · York Through Time (v2)
    Era bands, expanded milestones, simplified anchors
-   + Journey line + milestone icons along the rail
+   + Journey line + milestone icons (with year labels) along the rail
 */
 const START_YEAR = 70;
 const TARGET_KM = 1955; // 70 → 2025
@@ -16,7 +16,7 @@ const ERAS = [
   { name: "Modern", from: 1901, to: 2025 }
 ];
 
-// Your milestones (SVG icons mapped from emoji ideas)
+// Milestones (SVG icon ids map from your emoji ideas)
 const MILESTONES = [
   { year:71,   label:"Eboracum founded",           icon:"icon-arch",
     caption:"The Romans established the fortress of Eboracum at the confluence of the Ouse and Foss—foundations of today’s York.",
@@ -68,7 +68,7 @@ const MILESTONES = [
 // Helpers
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const yearToPercent = (year) => clamp((year - START_YEAR) / TARGET_KM, 0, 1);
-const resolveIcon = (id) => document.getElementById(id) ? id : "icon-arch";
+const resolveIcon = (id) => document.getElementById(id) ? id : "icon-arch"; // safe fallback
 
 function pickMilestone(currentYear){
   let chosen = MILESTONES[0];
@@ -78,7 +78,7 @@ function pickMilestone(currentYear){
   return chosen || MILESTONES[0];
 }
 
-// Renderers
+// ----- Renderers -----
 function renderStatus(totalKm){
   const currentYear = START_YEAR + totalKm;
   document.getElementById('progressText').textContent = `${totalKm} / ${TARGET_KM} km`;
@@ -101,40 +101,25 @@ function renderEraBands(container){
   }
 }
 
-function renderAnchors(container){
-  if (!container) return;
-  container.innerHTML = '';
-  for (const a of ANCHORS){
-    const p = yearToPercent(a.year);
-    const el = document.createElement('div');
-    el.className = 'era-mark';
-    el.style.left = (p * 100) + '%';
-    el.innerHTML = `
-      <svg class="ico"><use href="#${resolveIcon(a.icon)}"></use></svg>
-      <div class="year">${a.year}</div>
-    `;
-    container.appendChild(el);
-  }
-}
-
-/* NEW: render all milestone icons above the rail */
+/* Show ALL milestone icons + a year label under each (above the rail) */
 function renderMilestoneMarks(container){
   if (!container) return;
   container.innerHTML = '';
   MILESTONES.forEach((m, i) => {
     const p = yearToPercent(m.year);
     const el = document.createElement('div');
-    el.className = 'milestone-mark ' + (i % 2 ? 'row2' : 'row1'); // stagger
+    el.className = 'milestone-mark ' + (i % 2 ? 'row2' : 'row1'); // stagger rows
     el.style.left = (p * 100) + '%';
     el.innerHTML = `
       <svg class="ico"><use href="#${resolveIcon(m.icon)}"></use></svg>
       <div class="tick"></div>
+      <div class="year">${m.year}</div>
     `;
     container.appendChild(el);
   });
 }
 
-/* NEW: glowing journey line from start → current */
+/* Glowing journey line from start → current */
 function renderJourneyLine(totalKm){
   const p = clamp(totalKm / TARGET_KM, 0, 1);
   const line = document.getElementById('journeyLine');
@@ -177,7 +162,7 @@ function renderMilestoneCard(totalKm){
   }
 }
 
-// Init
+// ----- Init -----
 async function init(){
   let totalKm = 0;
   try{
@@ -191,16 +176,18 @@ async function init(){
 
   renderStatus(totalKm);
   renderEraBands(document.getElementById('eraBands'));
-  renderAnchors(document.getElementById('eraMarks'));
-  renderMilestoneMarks(document.getElementById('milestoneMarks'));  // NEW
+
+  // NOTE: We intentionally DO NOT render anchor marks now.
+  // (eraMarks can remain in the DOM/CSS; it's just unused.)
+  renderMilestoneMarks(document.getElementById('milestoneMarks'));
+
   renderMilestoneCard(totalKm);
-  renderJourneyLine(totalKm);                                       // NEW
+  renderJourneyLine(totalKm);
   moveMarker(document.getElementById('progressMarker'), totalKm);
 
   window.addEventListener('resize', () => {
     renderEraBands(document.getElementById('eraBands'));
-    renderAnchors(document.getElementById('eraMarks'));
-    renderMilestoneMarks(document.getElementById('milestoneMarks')); // NEW
+    renderMilestoneMarks(document.getElementById('milestoneMarks'));
   });
 }
 
