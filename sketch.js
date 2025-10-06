@@ -191,3 +191,30 @@ async function init(){
   });
 }
 init();
+
+// --- Parallax background hotspot ---
+(function parallaxBG(){
+  const root = document.documentElement;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reduce.matches) return; // respect accessibility
+
+  let gx = '20%', gy = '18%', raf = 0;
+  const paint = () => {
+    root.style.setProperty('--gx', gx);
+    root.style.setProperty('--gy', gy);
+    raf = 0;
+  };
+  const schedule = () => { if (!raf) raf = requestAnimationFrame(paint); };
+
+  window.addEventListener('pointermove', (e) => {
+    const x = e.clientX / window.innerWidth;
+    const y = e.clientY / window.innerHeight;
+    gx = (x * 100).toFixed(1) + '%';
+    gy = (y * 100).toFixed(1) + '%';
+    schedule();
+  }, { passive: true });
+
+  // Sensible default on first paint
+  schedule();
+})();
+
