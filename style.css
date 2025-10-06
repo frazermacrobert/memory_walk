@@ -28,7 +28,7 @@ body{
 
 /* Rich neon/amber background with parallax hotspot */
 .bg{
-  position:fixed; inset:0; pointer-events:none; z-index:-1;
+  position:fixed; inset:0; pointer-events:none; z-index:0;
   background:
     radial-gradient(900px 520px at var(--gx) var(--gy), rgba(255,150,40,.35), transparent 60%),
     radial-gradient(1100px 640px at 58% 55%, var(--neon-soft), transparent 62%),
@@ -38,7 +38,7 @@ body{
   will-change: transform;
 }
 
-.app{ max-width: 1200px; margin: 0 auto; padding: 28px 24px 48px; }
+.app{ max-width: 1200px; margin: 0 auto; padding: 28px 24px 48px; position: relative; z-index: 1; }
 
 .app-header{
   display:flex; align-items:center; justify-content:space-between; gap:24px;
