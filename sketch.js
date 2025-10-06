@@ -103,18 +103,21 @@ function renderMilestoneMarks(container){
 }
 
 /* Years below the rail */
-function renderMilestoneLabels(container){
+const labelYear = (y) => (y <= 0 ? `${Math.abs(y)} BCE` : (y < 100 ? `${y} AD` : `${y}`));
+
+function renderEraStartLabels(container){
   if (!container) return;
   container.innerHTML = '';
-  MILESTONES.forEach((m) => {
-    const p = yearToPercent(m.year);
+  ERAS.forEach(e => {
+    const p = yearToPercent(e.from);
     const el = document.createElement('div');
     el.className = 'milestone-label';
     el.style.left = (p * 100) + '%';
-    el.textContent = m.year;
+    el.textContent = labelYear(e.from);
     container.appendChild(el);
   });
 }
+
 
 /* Journey line from start → current */
 function renderJourneyLine(totalKm){
@@ -175,7 +178,7 @@ async function init(){
   renderEraBands(document.getElementById('eraBands'));
 
   renderMilestoneMarks(document.getElementById('milestoneMarks'));
-  renderMilestoneLabels(document.getElementById('milestoneLabels'));   // NEW
+   renderEraStartLabels(document.getElementById('milestoneLabels')); // was renderMilestoneLabels(...)
 
   renderMilestoneCard(totalKm);
   renderJourneyLine(totalKm);
@@ -184,7 +187,7 @@ async function init(){
   window.addEventListener('resize', () => {
     renderEraBands(document.getElementById('eraBands'));
     renderMilestoneMarks(document.getElementById('milestoneMarks'));
-    renderMilestoneLabels(document.getElementById('milestoneLabels')); // NEW
+   renderEraStartLabels(document.getElementById('milestoneLabels')); // was renderMilestoneLabels(...)
   });
 }
 init();
