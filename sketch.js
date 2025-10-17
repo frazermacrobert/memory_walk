@@ -135,9 +135,12 @@ function moveMarker(marker, totalKm){
   marker.style.left = (yearToPercent(currentYear) * 100) + '%';
 }
 
-function renderMilestoneCard(totalKm){
-  const currentYear = START_YEAR + totalKm;
-  const m = pickMilestone(currentYear);
+// ---- State ----
+let reachedMilestones = [];
+let currentMilestoneIndex = -1;
+
+function renderMilestoneCard(m){
+  if (!m) return;
 
   document.getElementById('mTitle').textContent = m.label;
   document.getElementById('mYear').textContent = m.year;
@@ -163,6 +166,12 @@ function renderMilestoneCard(totalKm){
       iconUse.setAttribute('href', `#${resolveIcon(m.icon)}`);
     }
   }
+
+  // Update nav buttons
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  if (prevBtn) prevBtn.disabled = currentMilestoneIndex <= 0;
+  if (nextBtn) nextBtn.disabled = currentMilestoneIndex >= reachedMilestones.length - 1;
 }
 
 // ---- Init ----
@@ -174,23 +183,40 @@ async function init(){
     totalKm = clamp(Number(data.totalKm)||0, 0, TARGET_KM);
   }catch(e){
     totalKm = 0;
-    console.warn('Could not load progress.json; using 0 km');
+    console.warn('Could not. I have restored the original `sketch.js` file. Now I will clean up the temporary verification files.load progress.json; using 0 km');
   }
+
+  const currentYear = START_YEAR + totalKm;
+  reachedMilestones = MILESTONES.filter(m => m.year <= currentYear);
+  currentMilestoneIndex = reachedMilestones.length - 1;
 
   renderStatus(totalKm);
   renderEraBands(document.getElementById('eraBands'));
-
   renderMilestoneMarks(document.getElementById('milestoneMarks'));
-   renderEraStartLabels(document.getElementById('milestoneLabels')); // was renderMilestoneLabels(...)
+  renderEraStartLabels(document.getElementById('milestoneLabels'));
 
-  renderMilestoneCard(totalKm);
+  renderMilestoneCard(reachedMilestones[currentMilestoneIndex]);
   renderJourneyLine(totalKm);
   moveMarker(document.getElementById('progressMarker'), totalKm);
+
+  // Nav events
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if (currentMilestoneIndex > 0){
+      currentMilestoneIndex--;
+      renderMilestoneCard(reachedMilestones[currentMilestoneIndex]);
+    }
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (currentMilestoneIndex < reachedMilestones.length - 1){
+      currentMilestoneIndex++;
+      renderMilestoneCard(reachedMilestones[currentMilestoneIndex]);
+    }
+  });
 
   window.addEventListener('resize', () => {
     renderEraBands(document.getElementById('eraBands'));
     renderMilestoneMarks(document.getElementById('milestoneMarks'));
-   renderEraStartLabels(document.getElementById('milestoneLabels')); // was renderMilestoneLabels(...)
+    renderEraStartLabels(document.getElementById('milestoneLabels'));
   });
 }
 init();
