@@ -18,9 +18,9 @@ const ERAS = [
 // Milestones
 const MILESTONES = [
   { year:70,   label:"Challenge not started",           icon:"icon-arch",
-    caption:"The team will begin the challenge on Friday 17th of October, 2025.", link:"", image:"" },
+    caption:"The team will begin the challenge on Friday 17th of October, 2025.", link:"", image:"assets/photos/71.jpg" },
      { year:71,   label:"Eboracum founded",
-    caption:"The Romans established the fortress of Eboracum at the confluence of the Ouse and Foss—foundations of today’s York.", link:"", image:"" },
+    caption:"The Romans established the fortress of Eboracum at the confluence of the Ouse and Foss—foundations of today’s York.", link:"", image:"assets/photos/208.jpg" },
   { year:208,  label:"Death of Septimius Severus", icon:"icon-laurel",
     caption:"Roman emperor Septimius Severus died in York while campaigning in Britain, briefly making the city an imperial power base.", link:"", image:"" },
   { year:306,  label:"Constantine proclaimed",     icon:"icon-crown",
