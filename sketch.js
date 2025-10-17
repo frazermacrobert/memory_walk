@@ -89,9 +89,10 @@ function renderEraBands(container){
 
 /* Icons above the rail */
 function renderMilestoneMarks(container){
-  if (!container) return;
+if (!container) return;
   container.innerHTML = '';
   MILESTONES.forEach((m, i) => {
+    if (!m.icon) return; // Only show icons for milestones that have them
     const p = yearToPercent(m.year);
     const el = document.createElement('div');
     el.className = 'milestone-mark ' + (i % 2 ? 'row2' : 'row1'); // stagger to reduce overlap
