@@ -15,39 +15,114 @@ const ERAS = [
   { name: "Modern", from: 1901, to: 2025 }
 ];
 
-// Milestones
+// Milestones (expanded)
+// Note: icons only where provided so the timeline remains uncluttered
 const MILESTONES = [
-  { year:70,   label:"Challenge not started",           icon:"icon-arch",
-    caption:"The team will begin the challenge on Friday 17th of October, 2025.", link:"", image:"assets/photos/71.jpg" },
-     { year:71,   label:"Eboracum founded",
-    caption:"The Romans established the fortress of Eboracum at the confluence of the Ouse and Foss—foundations of today’s York.", link:"", image:"assets/photos/71.jpg" },
-  { year:208,  label:"Death of Septimius Severus", icon:"icon-laurel",
-    caption:"Roman emperor Septimius Severus died in York while campaigning in Britain, briefly making the city an imperial power base.", link:"", image:"assets/photos/208.jpg" },
-  { year:306,  label:"Constantine proclaimed",     icon:"icon-crown",
-    caption:"In Eboracum, Constantine was hailed emperor by his father’s troops—an event that helped set Rome (and later Europe) on a path toward Christianisation.", link:"", image:"" },
-  { year:627,  label:"First York Minster",         icon:"icon-minster",
-    caption:"King Edwin’s baptism led to a first wooden church on this site, beginning 1,300+ years of worship in York.", link:"", image:"" },
-  { year:866,  label:"Viking Invasion",            icon:"icon-ship",
-    caption:"The Great Heathen Army captured York and renamed it Jórvík, turning it into a bustling Viking trading hub.", link:"", image:"" },
-  { year:1068, label:"York Castle built",          icon:"icon-castle",
-    caption:"William the Conqueror raised a motte-and-bailey at York—precursor to Clifford’s Tower—to secure Norman control.", link:"", image:"" },
-  { year:1212, label:"Minster fire",               icon:"icon-flame",
-    caption:"A medieval blaze damaged parts of the Minster and city, prompting phases of rebuilding in stone.", link:"", image:"assets/1212.png" },
-  { year:1349, label:"Black Death",                icon:"icon-skull",
-    caption:"The plague hit York hard, reshaping population, labour and guild life across the city. Learn more:", link:"", image:"" },
-  { year:1485, label:"Wars of the Roses end",      icon:"icon-rose",
-    caption:"Bosworth brought Tudor rule; York’s close ties to Richard III ended and civic fortunes shifted under new royal policy.", link:"", image:"" },
-  { year:1644, label:"Siege of York",              icon:"icon-shield",
-    caption:"After the Parliamentarian victory at nearby Marston Moor, York surrendered—turning the tide in the North.", link:"", image:"" },
-  { year:1839, label:"Railway station opens",      icon:"icon-train",
-    caption:"York’s first station opened, propelling the city into the railway age and new industries.", link:"", image:"" },
-  { year:1932, label:"Chocolate Orange launched",  icon:"icon-choc",
-    caption:"Terry’s created the Chocolate Orange in York—a local invention that became a national favourite.", link:"", image:"" },
-  { year:1984, label:"JORVIK Centre opens",        icon:"icon-ship",
-    caption:"JORVIK brought Coppergate’s archaeology to life and re-imagined museum storytelling.", link:"", image:"" },
-  { year:2001, label:"Fairtrade City",             icon:"icon-handshake",
-    caption:"York’s fair-trade movement gathered pace; the city would go on to achieve official Fairtrade City status in 2004.", link:"", image:"" },
-  { year:2025, label:"Challenge complete!",        icon:"icon-stars",
+  // Roman era
+  { year:70, label:"Challenge not started", icon:"icon-arch",
+    caption:"The team will begin the challenge on Friday 17th of October, 2025.", link:"", image:"" },
+
+  { year:71, label:"Eboracum founded", icon:"icon-arch",
+    caption:"The Romans established the fortress of Eboracum at the meeting of the Ouse and Foss—York’s first foundations.", link:"https://en.wikipedia.org/wiki/Eboracum", image:"" },
+
+  { year:208, label:"Death of Septimius Severus", icon:"icon-laurel",
+    caption:"Emperor Septimius Severus died in York in 208 while on campaign—briefly putting the city at the heart of imperial attention.", link:"https://en.wikipedia.org/wiki/Septimius_Severus", image:"" },
+
+  { year:306, label:"Constantine proclaimed emperor", icon:"icon-crown",
+    caption:"In 306 Constantine was acclaimed emperor in Eboracum — a moment that would shape Christianity and Europe for centuries.", link:"https://en.wikipedia.org/wiki/Constantine_the_Great", image:"" },
+
+  { year:410, label:"End of Roman rule in Britain",
+    caption:"As Roman authority receded, the garrison at Eboracum would give way to new local powers and the seeds of medieval York.", link:"https://en.wikipedia.org/wiki/Roman_withdrawal_from_Britain", image:"" },
+
+  // Anglo‑Saxon era
+  { year:627, label:"King Edwin baptised — first Minster site", icon:"icon-minster",
+    caption:"King Edwin’s conversion led to a wooden church on the Minster site, starting over a millennium of Christian worship in York.", link:"https://en.wikipedia.org/wiki/Edwin_of_Northumbria", image:"" },
+
+  { year:789, label:"York an important Anglo-Saxon centre",
+    caption:"Through the 8th–9th centuries York grew as a regional centre for religion, trade and administration.", link:"https://en.wikipedia.org/wiki/History_of_York", image:"" },
+
+  // Viking era
+  { year:866, label:"Vikings take the city — Jórvík", icon:"icon-ship",
+    caption:"The Great Heathen Army captured York and turned it into Jórvík, a thriving Viking trading and craft hub.", link:"https://en.wikipedia.org/wiki/Jorvik", image:"" },
+
+  { year:954, label:"English kings re‑assert control",
+    caption:"By the mid-10th century kings such as Eadred restored English rule and York rejoined the Anglo‑Saxon kingdom.", link:"https://en.wikipedia.org/wiki/Eadred", image:"" },
+
+  { year:1002, label:"St Brice's Day massacre",
+    caption:"A royal order in 1002 led to violence against Danes across the north, a dark episode remembered in York’s Viking-era story.", link:"https://en.wikipedia.org/wiki/St_Brice%27s_Day_massacre", image:"" },
+
+  // Norman & Medieval
+  { year:1066, label:"Norman Conquest reaches the north",
+    caption:"William’s victory in 1066 set the stage for sweeping change across England — York would soon be reshaped to secure Norman power.", link:"https://en.wikipedia.org/wiki/Norman_conquest_of_England", image:"" },
+
+  { year:1068, label:"York Castle established", icon:"icon-castle",
+    caption:"The Normans built a motte-and-bailey where Clifford’s Tower stands today to control the north and the city.", link:"https://en.wikipedia.org/wiki/Clifford%27s_Tower", image:"" },
+
+  { year:1086, label:"Domesday records York",
+    caption:"The Domesday Book notes York’s wealth and households — a snapshot of the city soon after the Conquest.", link:"https://en.wikipedia.org/wiki/Domesday_Book", image:"" },
+
+  { year:1190, label:"Massacre of York’s Jewish community",
+    caption:"In a tragic episode, anti-Jewish violence in 1190 saw many lives lost; it’s a solemn part of the city’s medieval history.", link:"https://en.wikipedia.org/wiki/Massacre_of_Jews_in_England", image:"" },
+
+  { year:1212, label:"York Minster fire", icon:"icon-flame",
+    caption:"A major medieval blaze damaged the Minster and parts of the city, prompting long phases of rebuilding in stone.", link:"https://en.wikipedia.org/wiki/York_Minster", image:"" },
+
+  { year:1220, label:"Gothic rebuilding of the Minster begins",
+    caption:"From the early 13th century the Minster was rebuilt in Gothic style — the building we recognise today grew over centuries.", link:"https://en.wikipedia.org/wiki/York_Minster", image:"" },
+
+  { year:1349, label:"Black Death reaches York", icon:"icon-skull",
+    caption:"The plague swept through the city in 1349, dramatically altering population and civic life.", link:"https://en.wikipedia.org/wiki/Black_Death", image:"" },
+
+  { year:1357, label:"Merchant Adventurers' Hall established",
+    caption:"The Hall became the meeting place for York’s leading traders and remains one of the best‑preserved medieval guild halls.", link:"https://en.wikipedia.org/wiki/Merchant_Adventurers%27_Hall", image:"" },
+
+  // Tudor–Stuart
+  { year:1485, label:"Wars of the Roses end", icon:"icon-rose",
+    caption:"Bosworth brought the Plantagenet conflicts to an end; York’s political fortunes shifted under Tudor rule.", link:"https://en.wikipedia.org/wiki/Battle_of_Bosworth_Field", image:"" },
+
+  { year:1536, label:"Pilgrimage of Grace",
+    caption:"Yorkshire rose in protest against Henry VIII’s religious reforms — the Pilgrimage of Grace had its heart in the north.", link:"https://en.wikipedia.org/wiki/Pilgrimage_of_Grace", image:"" },
+
+  { year:1644, label:"Battle of Marston Moor & Siege of York", icon:"icon-shield",
+    caption:"In 1644 Parliamentarian forces defeated the Royalists at Marston Moor; York’s siege that year marked a turning point in the Civil War in the north.", link:"https://en.wikipedia.org/wiki/Battle_of_Marston_Moor", image:"" },
+
+  // Georgian & Industrial
+  { year:1767, label:"Terry’s founded in York",
+    caption:"Joseph Terry began the confectionery business that would grow into one of York’s best-known companies.", link:"https://en.wikipedia.org/wiki/Terry%27s", image:"" },
+
+  { year:1830, label:"Yorkshire Museum opens", icon:"icon-arch",
+    caption:"The Yorkshire Museum (opened by the Yorkshire Philosophical Society) began sharing the city’s archaeology and natural history with the public.", link:"https://en.wikipedia.org/wiki/Yorkshire_Museum", image:"" },
+
+  { year:1839, label:"Railway station opens", icon:"icon-train",
+    caption:"York’s station connected the city to the new railway age, helping to drive industry, travel and growth.", link:"https://en.wikipedia.org/wiki/York_railway_station", image:"" },
+
+  { year:1862, label:"Rowntree’s established",
+    caption:"Rowntree’s began producing chocolate and cocoa in York, joining Terry’s to create a famous local confectionery tradition.", link:"https://en.wikipedia.org/wiki/Rowntree%27s", image:"" },
+
+  // Late 19th / 20th century → Modern
+  { year:1932, label:"Chocolate Orange launched", icon:"icon-choc",
+    caption:"Terry’s introduced the Chocolate Orange in 1932 — a York invention that became a national favourite.", link:"https://en.wikipedia.org/wiki/Terry%27s", image:"" },
+
+  { year:1942, label:"Baedeker raids — wartime damage",
+    caption:"During the Second World War York suffered bombing in the Baedeker raids, with damage to parts of the historic centre.", link:"https://en.wikipedia.org/wiki/Baedeker_blitz", image:"" },
+
+  { year:1974, label:"Local government reorganisation",
+    caption:"A nationwide reorganisation changed administrative boundaries and the shape of local government affecting York.", link:"https://en.wikipedia.org/wiki/Local_Government_Act_1972", image:"" },
+
+  { year:1975, label:"National Railway Museum opens in York",
+    caption:"The NRM made York a major destination for railway heritage and transport history enthusiasts.", link:"https://en.wikipedia.org/wiki/National_Railway_Museum", image:"" },
+
+  { year:1984, label:"JORVIK Viking Centre opens", icon:"icon-ship",
+    caption:"JORVIK transformed how archaeology is presented, recreating Viking York and bringing Coppergate finds to life.", link:"https://en.wikipedia.org/wiki/Jorvik_Viking_Centre", image:"" },
+
+  { year:2001, label:"Fairtrade movement strengthens locally",
+    caption:"York’s community embraced fair trade initiatives that would lead to formal city-wide recognition.", link:"https://en.wikipedia.org/wiki/Fair_trade_city", image:"" },
+
+  { year:2004, label:"York becomes a Fairtrade City", icon:"icon-handshake",
+    caption:"Official Fairtrade City status celebrated local and civic commitment to ethical trade.", link:"https://en.wikipedia.org/wiki/Fair_trade_city", image:"" },
+
+  // Present
+  { year:2025, label:"Challenge complete!", icon:"icon-stars",
     caption:"We've made it to the present day—time traveller status unlocked!", link:"", image:"" }
 ];
 
@@ -89,7 +164,7 @@ function renderEraBands(container){
 
 /* Icons above the rail */
 function renderMilestoneMarks(container){
-if (!container) return;
+  if (!container) return;
   container.innerHTML = '';
   MILESTONES.forEach((m, i) => {
     if (!m.icon) return; // Only show icons for milestones that have them
@@ -121,7 +196,6 @@ function renderEraStartLabels(container){
   });
 }
 
-
 /* Journey line from start → current */
 function renderJourneyLine(totalKm){
   const p = clamp(totalKm / TARGET_KM, 0, 1);
@@ -152,10 +226,31 @@ function renderMilestoneCard(totalKm){
   const img = document.getElementById('mImage');
   const iconUse = document.querySelector('#mIcon use') || document.querySelector('.card-icon use');
 
+  // Robust image loading: add error handler and fallback to icon if image can't load
   if (img && m.image){
-    img.style.display = 'block';
-    img.src = m.image;
+    // Ensure previous handlers are cleared to avoid duplicate events
+    img.onload = null;
+    img.onerror = null;
+
+    // Hide icon while loading the image
     if (iconUse) iconUse.parentElement.style.display = 'none';
+
+    img.style.display = 'block';
+    // Attach handlers before setting src so we catch load/error
+    img.onload = () => {
+      img.style.display = 'block';
+    };
+    img.onerror = () => {
+      console.warn(`Could not load milestone image: ${m.image}`);
+      img.style.display = 'none';
+      img.removeAttribute('src');
+      // Restore icon fallback
+      if (iconUse) {
+        iconUse.parentElement.style.display = 'block';
+        iconUse.setAttribute('href', `#${resolveIcon(m.icon)}`);
+      }
+    };
+    img.src = m.image;
   } else {
     if (img){ img.style.display = 'none'; img.removeAttribute('src'); }
     if (iconUse){
@@ -181,7 +276,7 @@ async function init(){
   renderEraBands(document.getElementById('eraBands'));
 
   renderMilestoneMarks(document.getElementById('milestoneMarks'));
-   renderEraStartLabels(document.getElementById('milestoneLabels')); // was renderMilestoneLabels(...)
+  renderEraStartLabels(document.getElementById('milestoneLabels'));
 
   renderMilestoneCard(totalKm);
   renderJourneyLine(totalKm);
@@ -190,7 +285,7 @@ async function init(){
   window.addEventListener('resize', () => {
     renderEraBands(document.getElementById('eraBands'));
     renderMilestoneMarks(document.getElementById('milestoneMarks'));
-   renderEraStartLabels(document.getElementById('milestoneLabels')); // was renderMilestoneLabels(...)
+    renderEraStartLabels(document.getElementById('milestoneLabels'));
   });
 }
 init();
@@ -220,4 +315,3 @@ init();
   // Sensible default on first paint
   schedule();
 })();
-
