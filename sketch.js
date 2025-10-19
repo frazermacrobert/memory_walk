@@ -18,7 +18,7 @@ const ERAS = [
 // Milestones (images set to assets/photos/<year>.jpg). Only milestones with an `icon` will show an icon on the timeline.
 const MILESTONES = [
   // keep the initial challenge marker
-  { year:70,   label:"Challenge not started",           icon:"icon-arch",
+  { year:70,   label:"Challenge kickoff!",           icon:"icon-arch",
     caption:"The team will begin the challenge on Friday 17th of October, 2025.", link:"", image:"assets/photos/70.jpg" },
 
   // Roman era
