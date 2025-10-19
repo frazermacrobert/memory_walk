@@ -113,18 +113,43 @@ body{
 /* (Optional) anchor marks layer; fine if unused */
 .era-marks{ position:absolute; left:0; right:0; top:0; height:100%; z-index:4; }
 
-/* Milestone icons (ABOVE the rail) */
-.milestone-marks{ position:absolute; left:0; right:0; top:0; height:100%; z-index:5; pointer-events:none; }
-.milestone-mark{ position:absolute; transform:translateX(-50%); width:58px; text-align:center; }
-.milestone-mark.row1{ top: calc(var(--rail-top) - 118px); }
-.milestone-mark.row2{ top: calc(var(--rail-top) - 158px); }   /* stagger to avoid collisions */
+/* Milestone icons (ABOVE the rail) — SINGLE ROW */
+:root{
+  /* fine-tune these if you want the row higher/lower or bigger/smaller */
+  --icon-row-offset: 148px;  /* distance above the rail */
+  --icon-size: 30px;         /* svg size */
+  --icon-hit: 58px;          /* column width for each icon (helps spacing/centering) */
+}
+
+.milestone-marks{
+  position:absolute; left:0; right:0; top:0; height:100%; z-index:5; pointer-events:none;
+}
+.milestone-mark{
+  position:absolute;
+  top: calc(var(--rail-top) - var(--icon-row-offset));
+  transform: translateX(-50%);
+  width: var(--icon-hit);
+  text-align:center;
+}
 .milestone-mark .ico{
-  width:30px; height:30px; margin:0 auto 8px; color: var(--neon);
+  width: var(--icon-size);
+  height: var(--icon-size);
+  margin: 0 auto 8px;
+  color: var(--neon);
   filter: drop-shadow(0 0 10px rgba(255, 43, 209, .6));
 }
 .milestone-mark .tick{
   width:2px; height:24px; margin:0 auto; background:var(--rail); border-radius:2px; opacity:.9;
 }
+
+/* Responsive: shrink icons a touch on small screens to reduce overlap */
+@media (max-width: 720px){
+  :root{ --icon-size: 24px; --icon-hit: 44px; --icon-row-offset: 140px; }
+}
+@media (max-width: 420px){
+  :root{ --icon-size: 20px; --icon-hit: 36px; --icon-row-offset: 132px; }
+}
+
 
 /* Milestone years (BELOW the rail) */
 .milestone-labels{ position:absolute; left:0; right:0; top: calc(var(--rail-top) + 20px); height:22px; z-index:4; }
