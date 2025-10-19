@@ -22,7 +22,7 @@ const MILESTONES = [
     caption:"The team will begin the challenge on Friday 17th of October, 2025.", link:"", image:"assets/photos/70.jpg" },
 
   // Roman era
-  { year:71, label:"Eboracum founded", icon:"icon-arch",
+  { year:71, label:"Eboracum founded",
     caption:"The Romans established the fortress of Eboracum at the meeting of the Ouse and Foss—York’s first foundations.", link:"https://en.wikipedia.org/wiki/Eboracum", image:"assets/photos/71.jpg" },
   { year:208, label:"Death of Septimius Severus", icon:"icon-laurel",
     caption:"Emperor Septimius Severus died in York in 208 while on campaign—briefly putting the city at the heart of imperial attention.", link:"https://en.wikipedia.org/wiki/Septimius_Severus", image:"assets/photos/208.jpg" },
