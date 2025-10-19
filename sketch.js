@@ -31,7 +31,7 @@ const MILESTONES = [
   { year:410, label:"End of Roman rule in Britain",
     caption:"As Roman authority receded, the garrison at Eboracum would give way to new local powers and the seeds of medieval York.", link:"https://en.wikipedia.org/wiki/Roman_withdrawal_from_Britain", image:"assets/photos/410.jpg" },
 
-  // Anglo‑Saxon era
+  // Anglo-Saxon era
   { year:627, label:"King Edwin baptised — first Minster site", icon:"icon-minster",
     caption:"King Edwin’s conversion led to a wooden church on the Minster site, starting over a millennium of Christian worship in York.", link:"https://en.wikipedia.org/wiki/Edwin_of_Northumbria", image:"assets/photos/627.jpg" },
   { year:789, label:"York an important Anglo-Saxon centre",
@@ -40,8 +40,8 @@ const MILESTONES = [
   // Viking era
   { year:866, label:"Vikings take the city — Jórvík", icon:"icon-ship",
     caption:"The Great Heathen Army captured York and turned it into Jórvík, a thriving Viking trading and craft hub.", link:"https://en.wikipedia.org/wiki/Jorvik", image:"assets/photos/866.jpg" },
-  { year:954, label:"English kings re‑assert control",
-    caption:"By the mid-10th century kings such as Eadred restored English rule and York rejoined the Anglo‑Saxon kingdom.", link:"https://en.wikipedia.org/wiki/Eadred", image:"assets/photos/954.jpg" },
+  { year:954, label:"English kings re-assert control",
+    caption:"By the mid-10th century kings such as Eadred restored English rule and York rejoined the Anglo-Saxon kingdom.", link:"https://en.wikipedia.org/wiki/Eadred", image:"assets/photos/954.jpg" },
   { year:1002, label:"St Brice's Day massacre",
     caption:"A royal order in 1002 led to violence against Danes across the north, a dark episode remembered in York’s Viking-era story.", link:"https://en.wikipedia.org/wiki/St_Brice%27s_Day_massacre", image:"assets/photos/1002.jpg" },
 
@@ -61,7 +61,7 @@ const MILESTONES = [
   { year:1349, label:"Black Death reaches York", icon:"icon-skull",
     caption:"The plague swept through the city in 1349, dramatically altering population and civic life.", link:"https://en.wikipedia.org/wiki/Black_Death", image:"assets/photos/1349.jpg" },
   { year:1357, label:"Merchant Adventurers' Hall established",
-    caption:"The Hall became the meeting place for York’s leading traders and remains one of the best‑preserved medieval guild halls.", link:"https://en.wikipedia.org/wiki/Merchant_Adventurers%27_Hall", image:"assets/photos/1357.jpg" },
+    caption:"The Hall became the meeting place for York’s leading traders and remains one of the best-preserved medieval guild halls.", link:"https://en.wikipedia.org/wiki/Merchant_Adventurers%27_Hall", image:"assets/photos/1357.jpg" },
 
   // Tudor–Stuart
   { year:1485, label:"Wars of the Roses end", icon:"icon-rose",
@@ -138,20 +138,38 @@ function renderEraBands(container){
   }
 }
 
-/* Icons above the rail */
+/* Icons above the rail — SINGLE ROW */
 function renderMilestoneMarks(container){
   if (!container) return;
   container.innerHTML = '';
-  MILESTONES.forEach((m, i) => {
-    if (!m.icon) return; // Only show icons for milestones that have them
+
+  // Only milestones with icons
+  const withIcons = MILESTONES.filter(m => m.icon);
+
+  withIcons.forEach((m) => {
     const p = yearToPercent(m.year);
     const el = document.createElement('div');
-    el.className = 'milestone-mark ' + (i % 2 ? 'row2' : 'row1'); // stagger to reduce overlap
+
+    // Important change: no alternating row classes; just a single base class
+    el.className = 'milestone-mark';
+
+    // Position along the rail
     el.style.left = (p * 100) + '%';
+
+    // Optional: ensure we never clip at the extreme edges
+    el.style.transform = 'translateX(-50%)';
+
+    // Build icon
     el.innerHTML = `
-      <svg class="ico"><use href="#${resolveIcon(m.icon)}"></use></svg>
+      <svg class="ico" aria-hidden="true" focusable="false"><use href="#${resolveIcon(m.icon)}"></use></svg>
       <div class="tick"></div>
     `;
+
+    // Better a11y: title/label for hover and screen readers
+    el.setAttribute('role', 'img');
+    el.setAttribute('aria-label', `${m.year}: ${m.label || ''}`);
+    el.title = `${m.year}: ${m.label || ''}`;
+
     container.appendChild(el);
   });
 }
