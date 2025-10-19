@@ -74,7 +74,7 @@ const MILESTONES = [
   // Georgian & Industrial
   { year:1767, label:"Terry’s founded in York",
     caption:"Joseph Terry began the confectionery business that would grow into one of York’s best-known companies.", link:"https://en.wikipedia.org/wiki/Terry%27s", image:"assets/photos/1767.jpg" },
-  { year:1830, label:"Yorkshire Museum opens", icon:"icon-arch",
+  { year:1830, label:"Yorkshire Museum opens",
     caption:"The Yorkshire Museum (opened by the Yorkshire Philosophical Society) began sharing the city’s archaeology and natural history with the public.", link:"https://en.wikipedia.org/wiki/Yorkshire_Museum", image:"assets/photos/1830.jpg" },
   { year:1839, label:"Railway station opens", icon:"icon-train",
     caption:"York’s station connected the city to the new railway age, helping to drive industry, travel and growth.", link:"https://en.wikipedia.org/wiki/York_railway_station", image:"assets/photos/1839.jpg" },
@@ -90,11 +90,11 @@ const MILESTONES = [
     caption:"A nationwide reorganisation changed administrative boundaries and the shape of local government affecting York.", link:"https://en.wikipedia.org/wiki/Local_Government_Act_1972", image:"assets/photos/1974.jpg" },
   { year:1975, label:"National Railway Museum opens in York",
     caption:"The NRM made York a major destination for railway heritage and transport history enthusiasts.", link:"https://en.wikipedia.org/wiki/National_Railway_Museum", image:"assets/photos/1975.jpg" },
-  { year:1984, label:"JORVIK Viking Centre opens", icon:"icon-ship",
+  { year:1984, label:"JORVIK Viking Centre opens",
     caption:"JORVIK transformed how archaeology is presented, recreating Viking York and bringing Coppergate finds to life.", link:"https://en.wikipedia.org/wiki/Jorvik_Viking_Centre", image:"assets/photos/1984.jpg" },
   { year:2001, label:"Fairtrade movement strengthens locally",
     caption:"York’s community embraced fair trade initiatives that would lead to formal city-wide recognition.", link:"https://en.wikipedia.org/wiki/Fair_trade_city", image:"assets/photos/2001.jpg" },
-  { year:2004, label:"York becomes a Fairtrade City", icon:"icon-handshake",
+  { year:2004, label:"York becomes a Fairtrade City",
     caption:"Official Fairtrade City status celebrated local and civic commitment to ethical trade.", link:"https://en.wikipedia.org/wiki/Fair_trade_city", image:"assets/photos/2004.jpg" },
 
   // Present
