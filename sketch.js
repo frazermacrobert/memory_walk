@@ -11,7 +11,7 @@ const ERAS = [
   { name: "Viking", from: 866, to: 1065 },
   { name: "Norman & Medieval", from: 1066, to: 1485 },
   { name: "Tudor–Stuart", from: 1486, to: 1714 },
-  { name: "Georgian & Industrial", from: 1715, to: 1900 },
+  { name: "Georgian", from: 1715, to: 1900 },
   { name: "Modern", from: 1901, to: 2025 }
 ];
 
