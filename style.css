@@ -296,3 +296,109 @@ code{ background: rgba(255,255,255,0.08); padding:2px 6px; border-radius:6px }
 
 /* quick pulse to show "saved" */
 .screenshot.pulsed{ box-shadow: 0 8px 40px rgba(255,45,154,0.12); transform: scale(1.03); }
+
+
+/* =========================
+   Mobile polish (add at end)
+   ========================= */
+
+/* Tablet and down */
+@media (max-width: 900px){
+  .app{ padding: 20px 16px 36px; }
+
+  .app-header{
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .brand{ width: 100%; }
+  .title h1{ font-size: clamp(22px, 4.5vw, 28px); }
+  .title p{ font-size: 14px; }
+
+  .status{
+    width: 100%;
+    min-width: 0;
+    padding: 12px 14px;
+  }
+
+  /* Timeline spacing: pull everything closer on shorter screens */
+  .timeline{
+    --rail-top: 118px;     /* was 140px */
+    height: calc(var(--rail-top) + 72px);
+    margin: 28px 0 14px;
+  }
+
+  .era-bands{
+    top: calc(var(--rail-top) - 28px);
+    height: 46px;
+  }
+  .era-band{ height: 46px; }
+  .era-band .era-name{ top: -18px; font-size: 11px; }
+
+  .journey-line{ height: 7px; }
+
+  /* Icon row already moved to a single row; shrink a touch on tablets */
+  :root{
+    --icon-size: 26px;       /* was 30px */
+    --icon-hit: 48px;        /* was 58px */
+    --icon-row-offset: 132px;/* was 148px */
+  }
+  .milestone-mark .tick{ height: 20px; }
+
+  .progress-marker{ width: 14px; height: 14px; top: calc(var(--rail-top) - 7px); }
+
+  .milestone-labels{ top: calc(var(--rail-top) + 18px); }
+  .milestone-label{ font-size: 11px; }
+}
+
+/* Phones */
+@media (max-width: 600px){
+  .logo{ width:48px; height:48px; }
+
+  .status-line{ font-size: 16px; }
+  .status-sub{ font-size: 13px; }
+
+  .timeline{
+    --rail-top: 104px;                /* bring rail higher */
+    height: calc(var(--rail-top) + 64px);
+    margin: 22px 0 12px;
+  }
+
+  :root{
+    --icon-size: 22px;
+    --icon-hit: 38px;
+    --icon-row-offset: 120px;
+  }
+  .milestone-mark .tick{ height: 18px; }
+
+  /* Card: slightly tighter and taller media for phone screens */
+  .card{ padding: 14px; border-radius: 16px; }
+  .card-head{ gap: 10px; }
+  .card h2{ font-size: clamp(17px, 4.2vw, 20px); }
+  .badge{ padding: 5px 8px; font-size: 12px; }
+  .card-media{ aspect-ratio: 4 / 3; } /* friendlier on tall phones */
+  .card-desc{ font-size: 14px; }
+
+  .nav-btn{ width: 34px; height: 34px; } /* tap-friendly */
+
+  /* Donation widget: force full-width */
+  .donation-progress iframe{
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 96px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px){
+  :root{
+    --icon-size: 20px;
+    --icon-hit: 32px;
+    --icon-row-offset: 114px;
+  }
+  .title h1{ font-size: 20px; }
+  .title p{ font-size: 12px; }
+  .milestone-label{ font-size: 10px; }
+}
+
