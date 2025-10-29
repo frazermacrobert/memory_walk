@@ -32,7 +32,7 @@ const MILESTONES = [
     caption:"As Roman authority receded, the garrison at Eboracum would give way to new local powers and the seeds of medieval York.", link:"https://en.wikipedia.org/wiki/Roman_withdrawal_from_Britain", image:"assets/photos/410.jpg" },
 
   // Anglo-Saxon era
-  { year:560, label:"York's history enters the 'Lost Century'",
+  { year:500, label:"York's history enters the 'Lost Century'",
     caption:"During the 6th century, York transitioned from a fading Roman stronghold to part of the emerging Anglo-Saxon kingdom of Deira. Archaeology hints at Anglian settlement and reuse of Roman structures, though written records are silent.", link:"https://www.historyofyork.org.uk/themes/after-the-romans", image:"assets/photos/560.jpg" },
    { year:627, label:"King Edwin baptised — first Minster site", icon:"icon-minster",
     caption:"King Edwin’s conversion led to a wooden church on the Minster site, starting over a millennium of Christian worship in York.", link:"https://en.wikipedia.org/wiki/Edwin_of_Northumbria", image:"assets/photos/627.jpg" },
