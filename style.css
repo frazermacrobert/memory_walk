@@ -402,3 +402,222 @@ code{ background: rgba(255,255,255,0.08); padding:2px 6px; border-radius:6px }
   .milestone-label{ font-size: 10px; }
 }
 
+/* =========================
+   LOST ERA — CSS-ONLY PACK
+   (Paste at end of style.css)
+   Remove to disable.
+   ========================= */
+
+/* 0) Gentle global unease */
+html body{
+  filter: saturate(0.86) contrast(0.965);
+}
+
+/* 1) Full-page overlay: haze + scanlines + vignette (no markup) */
+body::before{
+  content:"";
+  position: fixed; inset: 0; pointer-events: none;
+  z-index: 2; /* above .bg (0) and behind .app (1)? .app has z:1, so we tint *over* .app softly */
+  /* Layered: speckle haze + broad fog + scanlines + vignette */
+  background:
+    /* sparse pixel speckles */
+    radial-gradient(2px 2px at 15% 20%, rgba(255,255,255,0.045), transparent 60%),
+    radial-gradient(2px 2px at 60% 70%, rgba(255,255,255,0.040), transparent 60%),
+    radial-gradient(2px 2px at 85% 30%, rgba(255,255,255,0.040), transparent 60%),
+    /* drifting fog */
+    radial-gradient(600px 380px at 30% 20%, rgba(10,5,18,0.34), transparent 70%),
+    radial-gradient(520px 420px at 70% 70%, rgba(20,8,28,0.34), transparent 70%),
+    /* scanlines */
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.08), rgba(0,0,0,0.08) 1px, transparent 2px),
+    /* vignette */
+    radial-gradient(1200px 700px at 50% 50%, rgba(0,0,0,0) 65%, rgba(0,0,0,0.28) 100%);
+  mix-blend-mode: soft-light;
+  opacity: .32;
+  animation: lost-haze-drift 18s ease-in-out infinite alternate,
+             lost-scan-wobble 10s ease-in-out infinite alternate;
+  backdrop-filter: blur(1.2px);
+}
+@keyframes lost-haze-drift{
+  0%   { transform: translate3d(-1.1%, -0.7%, 0) }
+  100% { transform: translate3d( 0.9%,  0.5%, 0) }
+}
+@keyframes lost-scan-wobble{
+  from { transform: translateY(-0.6%) }
+  to   { transform: translateY( 0.6%) }
+}
+
+/* 2) “Beacon” without markup — a tiny warning light in the corner */
+body::after{
+  content:"";
+  position: fixed; right: 16px; top: 16px;
+  z-index: 9999; pointer-events: none;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 45%, #ff5a5a 0%, #c1002b 70%);
+  box-shadow: 0 0 12px rgba(255,0,64,.85), 0 0 36px rgba(255,0,64,.35);
+  animation: lost-beacon-pulse 1.6s ease-in-out infinite,
+             lost-beacon-flicker 8s linear infinite;
+}
+@keyframes lost-beacon-pulse{
+  0%,100% { transform: scale(1) }
+  50%     { transform: scale(1.12) }
+}
+@keyframes lost-beacon-flicker{
+  0%, 96%, 100% { filter: none }
+  97% { filter: brightness(1.8) saturate(1.35) }
+  98% { filter: brightness(.65) saturate(.9) }
+  99% { filter: brightness(1.2) saturate(1.08) }
+}
+
+/* 3) Glitch slices over all card images (non-destructive) */
+.card-media{ overflow: hidden; }
+.card-media::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(transparent 0 30%, rgba(255,255,255,.03) 30% 31%, transparent 31% 40%,
+                    rgba(255,255,255,.04) 40% 41%, transparent 41% 60%,
+                    rgba(255,255,255,.03) 60% 61%, transparent 61% 100%);
+  mix-blend-mode: overlay; opacity:.16;
+  animation: lost-slice-shift 3.8s steps(10) infinite;
+}
+@keyframes lost-slice-shift{
+  0%   { transform: translate3d(0,0,0) }
+  50%  { transform: translate3d(1.4%,0,0) }
+  100% { transform: translate3d(0,0,0) }
+}
+
+/* 4) Random hazy pixel patches across the app (subtle, no markup) */
+.app::before{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background:
+    /* a few drifting “unknown” blotches */
+    radial-gradient(180px 140px at 12% 22%, rgba(20,10,28,0.35), transparent 68%),
+    radial-gradient(220px 160px at 78% 68%, rgba(15,8,24,0.35), transparent 70%),
+    radial-gradient(160px 120px at 44% 86%, rgba(18,9,26,0.28), transparent 70%),
+    /* tiny pixel specks */
+    radial-gradient(2px 2px at 10% 80%, rgba(255,255,255,0.05), transparent 60%),
+    radial-gradient(2px 2px at 70% 30%, rgba(255,255,255,0.045), transparent 60%);
+  mix-blend-mode: soft-light;
+  opacity:.28;
+  animation: lost-patches 22s ease-in-out infinite alternate;
+}
+@keyframes lost-patches{
+  0%   { transform: translate3d(0%, 0%, 0) }
+  100% { transform: translate3d(0.8%, -0.6%, 0) }
+}
+
+/* 5) Titles: chromatic ghosting on main headings */
+.title h1,
+.card h2{
+  text-shadow:
+    1px  0   0 rgba(255, 43, 209, .40),
+   -1px  0   0 rgba( 40,180,255, .35);
+  animation: lost-ca-warp 4.6s ease-in-out infinite;
+}
+@keyframes lost-ca-warp{
+  0%,100% { letter-spacing: normal }
+  50%     { letter-spacing: .4px }
+}
+
+/* 6) Slight instability on the milestone card (tasteful wobble) */
+.card{
+  position: relative;
+  will-change: transform, filter;
+  animation: lost-distort-jitter 3.4s steps(12) infinite;
+}
+@keyframes lost-distort-jitter{
+  0%   { transform: translate3d(0,0,0) skewX(0.08deg) }
+  12%  { transform: translate3d(0.3px,-0.5px,0) skewX(-0.15deg) }
+  24%  { transform: translate3d(-0.5px,0.3px,0) skewY(0.15deg) }
+  36%  { transform: translate3d(0.4px,0,0) skewX(0.12deg) }
+  48%  { transform: translate3d(-0.35px,0.25px,0) skewY(-0.12deg) }
+  60%  { transform: translate3d(0.2px,-0.2px,0) }
+  72%  { transform: translate3d(-0.45px,0.45px,0) }
+  84%  { transform: translate3d(0.28px,0.08px,0) }
+  100% { transform: translate3d(0,0,0) }
+}
+
+/* 7) Progress marker: tiny ominous flicker (keeps your pulse) */
+.progress-marker{
+  animation: pulse 2.4s ease-in-out infinite, lost-hue 9s ease-in-out infinite;
+  /* hue stays subtle; combines with your existing pulse */
+}
+@keyframes lost-hue{
+  0%,100% { filter: hue-rotate(0deg) brightness(1) }
+  50%     { filter: hue-rotate(-6deg) brightness(0.95) }
+}
+
+/* 8) Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  body::before, body::after,
+  .card-media::after, .app::before,
+  .title h1, .card h2, .card, .progress-marker{
+    animation: none !important;
+  }
+}
+
+/* =========================
+   LOST ERA – PERIODIC WARNING (CSS-only)
+   Appears in bursts, then vanishes.
+   ========================= */
+
+html::before{
+  content:"MEMORIES LOST TO HISTORY";
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 9998; /* below your beacon (9999) */
+  color: #ff2b2b;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(32px, 6vw, 90px);
+  letter-spacing: 2px;
+  text-align: center;
+
+  /* glow + slight screen blend */
+  text-shadow:
+    0 0 8px rgba(255,0,0,0.8),
+    0 0 24px rgba(255,0,0,0.5),
+    0 0 60px rgba(255,0,0,0.35);
+  mix-blend-mode: screen;
+
+  /* start hidden; animation brings it in waves */
+  opacity: 0;
+
+  /* two animations: burst appearance + tiny jitter while visible */
+  animation:
+    lost-burst 18s linear infinite,
+    lost-ghost-jitter 1.2s steps(2) infinite;
+}
+
+/* Timeline of a "broadcast breaking through":
+   0–4%: fade-in
+   4–8%: hold bright
+   8–12%: fade-out
+   12–100%: hidden (long quiet period) */
+@keyframes lost-burst{
+  0%   { opacity: 0;   filter: blur(3px) brightness(0.6) }
+  2%   { opacity: 0.5; filter: blur(2px) brightness(0.9) }
+  4%   { opacity: 1;   filter: blur(0px) brightness(1)   }
+  8%   { opacity: 1;   filter: blur(0.5px) brightness(1) }
+  12%  { opacity: 0;   filter: blur(2px) brightness(0.8) }
+  100% { opacity: 0;   filter: blur(3px) brightness(0.6) }
+}
+
+/* A tiny, glitchy nudge while visible */
+@keyframes lost-ghost-jitter{
+  0%, 100% { transform: translate3d(0,0,0) }
+  50%      { transform: translate3d(0.6px, -0.4px, 0) }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  html::before{
+    animation: lost-burst 24s linear infinite;
+    transform: none !important;
+  }
+}
+ 
