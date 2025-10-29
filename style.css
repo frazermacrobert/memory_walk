@@ -557,52 +557,66 @@ body::after{
 }
 
 /* =========================
-   LOST ERA – WARNING MESSAGE
+   LOST ERA – PERIODIC WARNING (CSS-only)
+   Appears in bursts, then vanishes.
    ========================= */
 
-/* Full-screen flashing text overlay */
-body::before{
-  /* keep the existing haze/scanlines background */
+html::before{
   content:"MEMORIES LOST TO HISTORY";
   position: fixed;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9998;          /* above everything but below beacon (9999) */
+  pointer-events: none;
+  z-index: 9998; /* below your beacon (9999) */
   color: #ff2b2b;
   font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  font-size: clamp(32px, 6vw, 90px);
   font-weight: 800;
+  font-size: clamp(32px, 6vw, 90px);
   letter-spacing: 2px;
   text-align: center;
+
+  /* glow + slight screen blend */
   text-shadow:
     0 0 8px rgba(255,0,0,0.8),
     0 0 24px rgba(255,0,0,0.5),
     0 0 60px rgba(255,0,0,0.35);
-  background:
-    radial-gradient(circle at 50% 50%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.85) 100%);
   mix-blend-mode: screen;
+
+  /* start hidden; animation brings it in waves */
+  opacity: 0;
+
+  /* two animations: burst appearance + tiny jitter while visible */
   animation:
-    lost-flash 1.4s steps(2) infinite,
-    lost-fade 12s ease-in-out infinite alternate;
+    lost-burst 18s linear infinite,
+    lost-ghost-jitter 1.2s steps(2) infinite;
 }
 
-@keyframes lost-flash {
-  0%   { opacity: 1; }
-  50%  { opacity: .3; }
-  100% { opacity: 1; }
+/* Timeline of a "broadcast breaking through":
+   0–4%: fade-in
+   4–8%: hold bright
+   8–12%: fade-out
+   12–100%: hidden (long quiet period) */
+@keyframes lost-burst{
+  0%   { opacity: 0;   filter: blur(3px) brightness(0.6) }
+  2%   { opacity: 0.5; filter: blur(2px) brightness(0.9) }
+  4%   { opacity: 1;   filter: blur(0px) brightness(1)   }
+  8%   { opacity: 1;   filter: blur(0.5px) brightness(1) }
+  12%  { opacity: 0;   filter: blur(2px) brightness(0.8) }
+  100% { opacity: 0;   filter: blur(3px) brightness(0.6) }
 }
 
-@keyframes lost-fade {
-  0%   { filter: blur(0px) brightness(1); }
-  100% { filter: blur(1px) brightness(.8); }
+/* A tiny, glitchy nudge while visible */
+@keyframes lost-ghost-jitter{
+  0%, 100% { transform: translate3d(0,0,0) }
+  50%      { transform: translate3d(0.6px, -0.4px, 0) }
 }
 
-/* Reduce motion respect */
+/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){
-  body::before{
-    animation: none;
-    opacity: 0.85;
+  html::before{
+    animation: lost-burst 24s linear infinite;
+    transform: none !important;
   }
 }
