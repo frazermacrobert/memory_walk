@@ -84,16 +84,12 @@ const MILESTONES = [
     caption:"Rowntree’s began producing chocolate and cocoa in York, joining Terry’s to create a famous local confectionery tradition.", link:"https://en.wikipedia.org/wiki/Rowntree%27s", image:"assets/photos/1862.jpg" },
 
   // Late 19th / 20th century → Modern
-  { year:1932, label:"Chocolate Orange launched", icon:"icon-choc",
-    caption:"Terry’s introduced the Chocolate Orange in 1932 — a York invention that became a national favourite.", link:"https://en.wikipedia.org/wiki/Terry%27s", image:"assets/photos/1932.jpg" },
   { year:1942, label:"Baedeker raids — wartime damage",
     caption:"During the Second World War York suffered bombing in the Baedeker raids, with damage to parts of the historic centre.", link:"https://en.wikipedia.org/wiki/Baedeker_blitz", image:"assets/photos/1942.jpg" },
   { year:1974, label:"Local government reorganisation",
     caption:"A nationwide reorganisation changed administrative boundaries and the shape of local government affecting York.", link:"https://en.wikipedia.org/wiki/Local_Government_Act_1972", image:"assets/photos/1974.jpg" },
   { year:1975, label:"National Railway Museum opens in York",
     caption:"The NRM made York a major destination for railway heritage and transport history enthusiasts.", link:"https://en.wikipedia.org/wiki/National_Railway_Museum", image:"assets/photos/1975.jpg" },
-  { year:1984, label:"JORVIK Viking Centre opens",
-    caption:"JORVIK transformed how archaeology is presented, recreating Viking York and bringing Coppergate finds to life.", link:"https://en.wikipedia.org/wiki/Jorvik_Viking_Centre", image:"assets/photos/1984.jpg" },
   { year:2001, label:"Fairtrade movement strengthens locally",
     caption:"York’s community embraced fair trade initiatives that would lead to formal city-wide recognition.", link:"https://en.wikipedia.org/wiki/Fair_trade_city", image:"assets/photos/2001.jpg" },
   { year:2004, label:"York becomes a Fairtrade City",
